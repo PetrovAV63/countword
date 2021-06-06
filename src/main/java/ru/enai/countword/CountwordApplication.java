@@ -28,7 +28,7 @@ public class CountwordApplication implements CommandLineRunner {
     public void run(String... args) {
         String command = "";
         appManager.printMenu();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             command = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
