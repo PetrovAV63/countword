@@ -12,16 +12,16 @@ import java.io.InputStreamReader;
 
 
 @SpringBootApplication
-public class CountwordApplication implements CommandLineRunner {
+public class CountWordApplication implements CommandLineRunner {
     final AppManager appManager;
 
 
-    public CountwordApplication(AppManager appManager) {
+    public CountWordApplication(AppManager appManager) {
         this.appManager = appManager;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(CountwordApplication.class, args);
+        SpringApplication.run(CountWordApplication.class, args);
     }
 
     @Override

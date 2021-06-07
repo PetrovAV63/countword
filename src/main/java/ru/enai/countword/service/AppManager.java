@@ -1,17 +1,21 @@
 package ru.enai.countword.service;
 
-import org.springframework.stereotype.Component;
+
+import org.springframework.stereotype.Service;
+import ru.enai.countword.service.implementation.SaverHtmlPage;
 
 
-@Component
+@Service
 public class AppManager {
+
+
+
 
     public void printMenu() {
         final String MENU = "Entry link and command." + "\n" +
-                "Example: www.simbirsoft.ru -d -f -s" + "\n" +
+                "Example: https://www.simbirsoft.com -d -f" + "\n" +
                 "Where: -d Save in database" + "\n" +
-                "       -f Save in file" + "\n" +
-                "       -s View on screen only";
+                "       -f Save in file";
         System.out.println(MENU);
     }
 
