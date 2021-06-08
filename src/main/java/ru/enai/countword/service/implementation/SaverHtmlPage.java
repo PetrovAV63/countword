@@ -2,7 +2,6 @@ package ru.enai.countword.service.implementation;
 
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.enai.countword.service.interfaces.SaveService;
 
@@ -26,7 +25,6 @@ public class SaverHtmlPage implements SaveService {
     private PrintWriter outputFile = null;
 
 
-
     @Override
     public String save(String link) {
 
@@ -37,7 +35,6 @@ public class SaverHtmlPage implements SaveService {
         try {
             Path directories = Files.createDirectories(path);
             destinationFile = new File(directories + "//" + fileName + ".html");
-
             outputFile = new PrintWriter(destinationFile);
             url = new URL(link);
 
@@ -63,15 +60,13 @@ public class SaverHtmlPage implements SaveService {
             return "Error";
 
         } finally {
-               outputFile.close();
+            outputFile.close();
             try {
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println(destinationFile.getAbsolutePath());
         return destinationFile.getAbsolutePath();
-
     }
 }
