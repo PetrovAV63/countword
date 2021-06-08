@@ -1,8 +1,10 @@
 package ru.enai.countword.service.implementation;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.enai.countword.service.interfaces.SaveResultService;
 import ru.enai.countword.service.interfaces.SaveService;
 
 import java.io.*;
@@ -18,25 +20,29 @@ import java.nio.file.Paths;
 public class SaverHtmlPageImpl implements SaveService {
     @Value("${pages.path}")
     private String pagesPath;
+    @Value("${pages.suffix}")
+    private String suffix;
 
+    private final SaveResultService saveResultService;
 
-    private URL url = null;
     private BufferedReader reader = null;
     private PrintWriter outputFile = null;
+
+    public SaverHtmlPageImpl(SaveResultService saveResultService) {
+        this.saveResultService = saveResultService;
+    }
 
 
     @Override
     public String save(String link) {
 
         String fileName = link.substring(link.indexOf('.') + 1, link.lastIndexOf('.'));
-        Path path = Paths.get(this.pagesPath);
         File destinationFile = null;
 
         try {
-            Path directories = Files.createDirectories(path);
-            destinationFile = new File(directories + "//" + fileName + ".html");
+            destinationFile = saveResultService.createdFile(this.pagesPath, suffix);
             outputFile = new PrintWriter(destinationFile);
-            url = new URL(link);
+            URL url = new URL(link);
 
             URLConnection con = url.openConnection();
             InputStream inputStream = con.getInputStream();

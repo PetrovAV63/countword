@@ -1,5 +1,10 @@
 pages:
   path: pages//
+  suffix: .html
+
+result:
+  file:
+    path: result//
 
 spring:
     main:
