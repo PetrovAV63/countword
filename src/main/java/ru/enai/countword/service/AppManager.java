@@ -2,14 +2,11 @@ package ru.enai.countword.service;
 
 
 import org.springframework.stereotype.Service;
-import ru.enai.countword.service.implementation.SaverHtmlPage;
+
 
 
 @Service
 public class AppManager {
-
-
-
 
     public void printMenu() {
         final String MENU = "Entry link and command." + "\n" +
@@ -22,6 +19,6 @@ public class AppManager {
     public void start(String command) {
         String[] data = command.split("\\s");
 
-        }
     }
+}
 

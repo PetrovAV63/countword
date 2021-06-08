@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 
 @Service
-public class SaverHtmlPage implements SaveService {
+public class SaverHtmlPageImpl implements SaveService {
     @Value("${pages.path}")
     private String pagesPath;
 
