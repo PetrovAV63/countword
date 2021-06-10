@@ -49,6 +49,17 @@ public class SaveHtml implements SaveService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if(outputFile != null)
+                outputFile.close();
+            if(reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
         return destinationFile.getAbsolutePath();

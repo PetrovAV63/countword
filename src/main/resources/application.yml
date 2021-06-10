@@ -1,5 +1,5 @@
 pages:
-  path: pagess//
+  path: pages//
 
 spring:
   main:
