@@ -1,1 +1,6 @@
+pages:
+  path: pagess//
 
+spring:
+  main:
+    web-application-type: none
