@@ -11,8 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-@Service
-@Qualifier("parserHtml")
+@Service("parserHtml")
 public class ParserHtml implements SaveService {
 
     @Override

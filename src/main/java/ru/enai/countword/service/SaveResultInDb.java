@@ -8,8 +8,7 @@ import ru.enai.countword.service.interfaces.SaveService;
 
 import java.util.Map;
 
-@Service
-@Qualifier("saveServiceDb")
+@Service("saveServiceDb")
 public class SaveResultInDb implements SaveService {
     private WordCountRepo wordCountRepo;
 

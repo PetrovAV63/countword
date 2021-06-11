@@ -2,9 +2,9 @@ package ru.enai.countword.service;
 
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import ru.enai.countword.CountWordApplication;
+import org.springframework.stereotype.Service;
 import ru.enai.countword.service.interfaces.SaveService;
+import ru.enai.countword.service.interfaces.SaveServiceHtml;
 import ru.enai.countword.service.interfaces.WordCounterService;
 
 import java.io.BufferedReader;
@@ -13,17 +13,19 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 
-@Component
+@Service
 public class AppManager {
 
-    private final SaveService saveServiceParser, saveServiceHtml, saveServiceDb;
+    private final SaveService saveServiceParser, saveServiceDb;
+    private final SaveServiceHtml saveServiceHtml;
+
+
 
     private final WordCounterService wordCounterService;
 
-    private BufferedReader reader;
 
     public AppManager(@Qualifier("parserHtml") SaveService saveServiceParser,
-                      @Qualifier("saveHtml") SaveService saveServiceHtml,
+                      SaveServiceHtml saveServiceHtml,
                       @Qualifier("saveServiceDb") SaveService saveServiceDb,
                       WordCounterService wordCounterService) {
         this.saveServiceParser = saveServiceParser;
@@ -45,17 +47,20 @@ public class AppManager {
             } else {
 
             }
-            reader.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void start(String link) {
-        String pathToHtmlPage = saveServiceHtml.saveService(link);
+        String pathToHtmlPage = saveServiceHtml.saveHtmlInFile(link);
+
         String text = saveServiceParser.saveService(pathToHtmlPage);//request parser here
+
         Map<String, Integer> resultMap = wordCounterService.countWord(text, link);
-        questionSaveInDb(resultMap);
+
+        //questionSaveInDb(resultMap);
     }
 
     private void questionSaveInDb(Map<String, Integer> map) {
