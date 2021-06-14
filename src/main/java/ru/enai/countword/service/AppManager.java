@@ -1,12 +1,14 @@
 package ru.enai.countword.service;
 
 import org.springframework.stereotype.Service;
+
 import ru.enai.countword.model.Word;
 import ru.enai.countword.repos.WordCountRepo;
 import ru.enai.countword.service.interfaces.ParserHtmlFromFileService;
 import ru.enai.countword.service.interfaces.SaveServiceDataBase;
 import ru.enai.countword.service.interfaces.SaveServiceHtml;
 import ru.enai.countword.service.interfaces.WordCounterService;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +26,6 @@ public class AppManager {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 
-
     public AppManager(ParserHtmlFromFileService parserHtml,
                       SaveServiceHtml saveServiceHtml,
                       WordCounterService wordCounterService,
@@ -35,6 +36,7 @@ public class AppManager {
         this.saveServiceDataBase = saveServiceDataBase;
         this.repo = repo;
     }
+
 
 
     public void start() {
@@ -69,6 +71,7 @@ public class AppManager {
             System.exit(100);
         }
     }
+}
 
     private void getMenu() {
         System.out.println("Enter link" + "\n" +

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ru.enai.countword.service.AppManager;
 
 
+
 @SpringBootApplication
 public class CountWordApplication implements CommandLineRunner {
     private final AppManager appManager;
@@ -19,6 +20,7 @@ public class CountWordApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(CountWordApplication.class, args);
     }
+
 
 
     @Override

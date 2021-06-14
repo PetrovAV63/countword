@@ -17,5 +17,6 @@ public class Counter {
                 counts.put(word, counts.get(word)+1);
         }
         return counts;
+
     }
 }

@@ -1,6 +1,7 @@
 package ru.enai.countword.model;
 
 import lombok.AllArgsConstructor;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,6 @@ public class Word {
     private Long id;
     private String word;
     private Integer counts;
-}
+    private Long count;
+
+
