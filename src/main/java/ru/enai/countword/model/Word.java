@@ -21,6 +21,6 @@ public class Word {
     private Long id;
     private String word;
     private Integer counts;
-    private Long count;
+    
 
 
