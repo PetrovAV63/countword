@@ -6,14 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ru.enai.countword.service.AppManager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 
 @SpringBootApplication
 public class CountWordApplication implements CommandLineRunner {
-    final AppManager appManager;
+    private final AppManager appManager;
 
 
     public CountWordApplication(AppManager appManager) {
@@ -24,15 +21,12 @@ public class CountWordApplication implements CommandLineRunner {
         SpringApplication.run(CountWordApplication.class, args);
     }
 
+
+
     @Override
     public void run(String... args) {
-        String command = "";
-        appManager.printMenu();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            command = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (true) {
+            appManager.start();
         }
-        appManager.start(command);
     }
 }
