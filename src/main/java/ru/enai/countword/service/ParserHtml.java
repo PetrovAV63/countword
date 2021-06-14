@@ -20,7 +20,6 @@ public class ParserHtml implements ParserHtmlFromFileService {
             document = Jsoup.parse(new File(link), "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(200);
         }
         return document.body().text();
     }
