@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.enai.countword.model.Word;
 @Repository
+public interface WordCountRepo extends JpaRepository<Word, Long>{
 
+}

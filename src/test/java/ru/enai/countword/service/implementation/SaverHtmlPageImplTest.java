@@ -8,19 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.enai.countword.service.SaveHtml;
+import ru.enai.countword.service.interfaces.SaveServiceHtml;
 
 
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SaverHtmlPageImpl.class)
+@SpringBootTest(classes = SaveHtml.class)
 class SaverHtmlPageImplTest {
 
     @Autowired
-    SaverHtmlPageImpl saverHtmlPageImpl;
+    SaveServiceHtml saveServiceHtml;
 
     @Test
     void save() {
-        String link = saverHtmlPageImpl.save("https://www.simbirsoft.com");
+        String link = saveServiceHtml.saveHtmlInFile("https://www.simbirsoft.com");
         Assert.assertNotNull(link);
         Assertions.assertThat(link.contains(".html"));
     }

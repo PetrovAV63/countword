@@ -29,7 +29,8 @@ public class AppManager {
     public AppManager(ParserHtmlFromFileService parserHtml,
                       SaveServiceHtml saveServiceHtml,
                       WordCounterService wordCounterService,
-                      SaveServiceDataBase saveServiceDataBase, WordCountRepo repo) {
+                      SaveServiceDataBase saveServiceDataBase,
+                      WordCountRepo repo) {
         this.parserHtml = parserHtml;
         this.saveServiceHtml = saveServiceHtml;
         this.wordCounterService = wordCounterService;
@@ -64,14 +65,13 @@ public class AppManager {
 
     private void nextAction(String action) throws IOException {
         if (action.equals("-v")) {
-            List<Word> allWords = repo.findAll();
-            allWords.forEach(System.out::println);
+            viewResult();
         } else if (action.equals("-q")) {
             reader.close();
             System.exit(100);
         }
     }
-}
+
 
     private void getMenu() {
         System.out.println("Enter link" + "\n" +
