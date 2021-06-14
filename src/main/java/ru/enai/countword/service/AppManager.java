@@ -71,11 +71,11 @@ public class AppManager {
             System.exit(100);
         }
     }
-}
+
 
     private void getMenu() {
         System.out.println("Enter link" + "\n" +
-                "Example: https://www.simbirsoft.com");
+                "Example: http://www.simbirsoft.com");
     }
 
     private void saveResultToDataBaseQuestion() {

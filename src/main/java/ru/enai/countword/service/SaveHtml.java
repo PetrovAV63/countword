@@ -29,7 +29,7 @@ public class SaveHtml implements SaveServiceHtml {
 
     @Override
     public String saveHtmlInFile(String link) {
-        String fileName = link.substring(link.indexOf('.') + 1, link.lastIndexOf('.'));
+        String fileName = link.substring(link.indexOf('/') + 1, link.lastIndexOf('.'));
         String pathFileHtml = "";
         try {
             Path newFilePath = createdFileToPath(fileName);
