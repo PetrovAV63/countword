@@ -2,29 +2,26 @@ package ru.enai.countword.service;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.enai.countword.service.interfaces.SaveService;
+import ru.enai.countword.service.interfaces.ParserHtmlFromFileService;
 
 
 import java.io.File;
 import java.io.IOException;
 
 
-@Service("parserHtml")
-public class ParserHtml implements SaveService {
+@Service
+public class ParserHtml implements ParserHtmlFromFileService {
 
     @Override
-    public <T> String saveService(T t) {
-        String filePath = (String) t;
+    public String parserHtmlFromFile(String link) {
         Document document = null;
         try {
-            document = Jsoup.parse(new File(filePath), "UTF-8");
+            document = Jsoup.parse(new File(link), "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(200);
         }
-
-
         return document.body().text();
     }
 }

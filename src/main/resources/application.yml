@@ -1,3 +1,23 @@
 pages:
   path: pages
 
+logging:
+  level:
+    org.springframework.web: ERROR
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/app.log
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: hsql
+    show-sql: false
+
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:

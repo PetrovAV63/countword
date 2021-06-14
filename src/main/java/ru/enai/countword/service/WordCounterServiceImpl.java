@@ -22,7 +22,7 @@ public class WordCounterServiceImpl implements WordCounterService {
     public Map<String, Integer> countWord(String text, String link) {
         String[] words = splitter.splitWords(text);
         Map<String, Integer> result = counter.countWords(words);
-        result.forEach((key, value) -> System.out.println(key + " count is " + value));
+        result.forEach((key, value) -> System.out.println(String.format("%s - %d", key, value)));
         return result;
     }
 }

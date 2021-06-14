@@ -1,82 +1,94 @@
 package ru.enai.countword.service;
 
-
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.enai.countword.service.interfaces.SaveService;
+import ru.enai.countword.model.Word;
+import ru.enai.countword.repos.WordCountRepo;
+import ru.enai.countword.service.interfaces.ParserHtmlFromFileService;
+import ru.enai.countword.service.interfaces.SaveServiceDataBase;
 import ru.enai.countword.service.interfaces.SaveServiceHtml;
 import ru.enai.countword.service.interfaces.WordCounterService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Map;
-
 
 @Service
 public class AppManager {
-
-    private final SaveService saveServiceParser, saveServiceDb;
+    private final ParserHtmlFromFileService parserHtml;
     private final SaveServiceHtml saveServiceHtml;
-
-
-
     private final WordCounterService wordCounterService;
+    private final SaveServiceDataBase saveServiceDataBase;
+    private final WordCountRepo repo;
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 
-    public AppManager(@Qualifier("parserHtml") SaveService saveServiceParser,
+
+    public AppManager(ParserHtmlFromFileService parserHtml,
                       SaveServiceHtml saveServiceHtml,
-                      @Qualifier("saveServiceDb") SaveService saveServiceDb,
-                      WordCounterService wordCounterService) {
-        this.saveServiceParser = saveServiceParser;
+                      WordCounterService wordCounterService,
+                      SaveServiceDataBase saveServiceDataBase, WordCountRepo repo) {
+        this.parserHtml = parserHtml;
         this.saveServiceHtml = saveServiceHtml;
         this.wordCounterService = wordCounterService;
-        this.saveServiceDb = saveServiceDb;
-
+        this.saveServiceDataBase = saveServiceDataBase;
+        this.repo = repo;
     }
 
 
-    public void printMenu() {
+    public void start() {
+        try {
+            getMenu();
+            String link = reader.readLine();
+
+            String pathToHtmlPage = saveServiceHtml.saveHtmlInFile(link);
+            String text = parserHtml.parserHtmlFromFile(pathToHtmlPage);
+            Map<String, Integer> resultMap = wordCounterService.countWord(text, link);
+
+            saveResultToDataBaseQuestion();
+            String saveDateBase = reader.readLine();
+            if (saveDateBase.equals("Y")) {
+                saveServiceDataBase.saveResultToDataBase(resultMap);
+            }
+            viewNextAction();
+            String action = reader.readLine();
+            nextAction(action);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void nextAction(String action) throws IOException {
+        if (action.equals("-v")) {
+            List<Word> allWords = repo.findAll();
+            allWords.forEach(System.out::println);
+        } else if (action.equals("-q")) {
+            reader.close();
+            System.exit(100);
+        }
+    }
+
+    private void getMenu() {
         System.out.println("Enter link" + "\n" +
-                "Example: http://www.simbirsoft.com" + "\n" +
-                " or q for exit");
-        try {
-            String link = new BufferedReader(new InputStreamReader(System.in)).readLine();
-            if(!link.equals("q")) {
-                start(link);
-            } else {
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                "Example: https://www.simbirsoft.com");
     }
 
-    private void start(String link) {
-        String pathToHtmlPage = saveServiceHtml.saveHtmlInFile(link);
-
-        String text = saveServiceParser.saveService(pathToHtmlPage);//request parser here
-
-        Map<String, Integer> resultMap = wordCounterService.countWord(text, link);
-
-        //questionSaveInDb(resultMap);
+    private void saveResultToDataBaseQuestion() {
+        System.out.println("Do you save result to data base?" + "\n" +
+                "Enter 'Y' or 'N'");
     }
 
-    private void questionSaveInDb(Map<String, Integer> map) {
-        System.out.println("Save the result to the database?" + "\n" +
-                "Enter Y or N");
+    private void viewNextAction() {
+        System.out.println("What do you next?" + "\n" +
+                "'-q' - exit" + "\n" +
+                "'-v' - view result" + "\n");
+    }
 
-        try {
-            String command = new BufferedReader(new InputStreamReader(System.in)).readLine();
-            if (command.toUpperCase().equals("Y")) {
-                saveServiceDb.saveService(map);
-            } else {
-                System.out.println("Application finish and ready for new command");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void viewResult() {
+        List<Word> all = repo.findAll();
+        all.forEach(System.out::println);
     }
 }
 

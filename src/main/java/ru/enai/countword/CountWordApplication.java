@@ -4,14 +4,12 @@ package ru.enai.countword;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import ru.enai.countword.service.AppManager;
 
 
 @SpringBootApplication
 public class CountWordApplication implements CommandLineRunner {
     private final AppManager appManager;
-    private Boolean status;
 
 
     public CountWordApplication(AppManager appManager) {
@@ -25,13 +23,8 @@ public class CountWordApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        status = true;
-
-        while (status) {
-            appManager.printMenu();
+        while (true) {
+            appManager.start();
         }
     }
-        public void setStatus(Boolean status) {
-            this.status = status;
-        }
-    }
+}
